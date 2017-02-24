@@ -19,6 +19,7 @@
 
 @implementation AppDelegate
 
+@synthesize oneSignal = _oneSignal;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -38,6 +39,10 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+
+  // ADD ONESIGNAL appId
+  self.oneSignal = [[RCTOneSignal alloc] initWithLaunchOptions:launchOptions
+                                                       appId:@"ONESIGNAL-APP-ID-HERE"];
 
   // TODO We don't need full release debugging forever, but for now it helps
   RCTSetLogThreshold(RCTLogLevelInfo - 1);
@@ -78,6 +83,12 @@
 
 -(void)applicationDidEnterBackground:(UIApplication *)application {
 }
+
+// Required for the notification event.
+// - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)notification {
+//     [RCTOneSignal didReceiveRemoteNotification:notification];
+// }
+
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
 
   NSMutableDictionary *notification = [NSMutableDictionary dictionaryWithDictionary: userInfo];

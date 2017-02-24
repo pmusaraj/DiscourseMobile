@@ -22,12 +22,13 @@ class SiteRow extends React.Component {
       <Swipeout
         sensitivity={2}
         backgroundColor={'white'}
-        scroll={(scrollEnabled) => this.props.onSwipe(scrollEnabled)}
-        right={[{
-          text: 'Remove',
-          backgroundColor: colors.redDanger,
-          onPress: this.props.onDelete
-        }]}>
+        // scroll={(scrollEnabled) => this.props.onSwipe(scrollEnabled)}
+        // right={[{
+        //   text: 'Remove',
+        //   backgroundColor: colors.redDanger,
+        //   onPress: this.props.onDelete
+        // }]}
+        >
         <TouchableHighlight
           underlayColor={colors.yellowUIFeedback}
           onPress={()=>this.props.onClick()}
@@ -41,12 +42,12 @@ class SiteRow extends React.Component {
                   style={styles.url}>
                     {this.props.site.url.replace(/^https?:\/\//, '')}
                 </Text>
-                <Text
+                {/*<Text
                   ellipsizeMode="tail"
                   numberOfLines={2}
                   style={styles.description}>
                     {this.props.site.description}
-                </Text>
+                </Text>*/}
                 {this._renderCounts(this.props.site)}
               </View>
               {this._renderShouldLogin(this.props.site)}
@@ -123,7 +124,7 @@ const styles = StyleSheet.create({
   },
   url: {
     color: colors.grayTitle,
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'normal'
   },
   description: {
@@ -147,11 +148,11 @@ const styles = StyleSheet.create({
     padding: 6
   },
   counts: {
-    marginTop: 6
+    marginTop: 10
   },
   countsText: {
     color: colors.blueUnread,
-    fontSize: 14
+    fontSize: 16
   }
 })
 

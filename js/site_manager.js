@@ -17,6 +17,8 @@ import JSEncrypt from './../lib/jsencrypt'
 import randomBytes from './../lib/random-bytes'
 import BackgroundJob from './../lib/background-job'
 
+import OneSignal from 'react-native-onesignal';
+
 class SiteManager {
   constructor() {
     this._subscribers = []
@@ -437,6 +439,17 @@ class SiteManager {
     this._nonceSite.authToken = decrypted.key
     this._nonceSite.hasPush = decrypted.push
     this._nonceSite.apiVersion = decrypted.api
+
+    // START ONESIGNAL: register
+    this._nonceSite.getUserInfo()
+        .then((user)=>{
+          console.log(user)
+          OneSignal.sendTag("username", user.username);
+        })
+        .catch((e)=>{
+          console.log('Failed to get user for ' + this._nonceSite.url  + ' ' + e)
+        })
+    // END ONESIGNAL: register
 
     // cause we want to stop rendering connect
     this._onChange()

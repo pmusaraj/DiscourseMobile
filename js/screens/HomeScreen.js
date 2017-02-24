@@ -95,6 +95,9 @@ class HomeScreen extends React.Component {
 
   _handleRemoteNotification(e) {
     console.log('got remote notification')
+    if (e._data && e._data.AppState === 'inactive' && e._data.custom.a.discourse_url) {
+      e._data.discourse_url = 'https://' + global.siteDomain + e._data.custom.a.discourse_url      
+    }
     console.log(e)
     if (e._data && e._data.AppState === 'inactive' && e._data.discourse_url) {
       console.log('open safari view')
@@ -298,10 +301,12 @@ class HomeScreen extends React.Component {
     }
 
     if (this.shouldDisplayOnBoarding()) {
-      return (
-        <Components.OnBoardingView
-          onDidPressAddSite={()=>this.setState({displayTermBar: true})} />
-      )
+      // Override onboarding to load our specific app site
+      return (this.doSearch(global.siteDomain))
+      // return (
+      //   <Components.OnBoardingView
+      //     onDidPressAddSite={()=>this.setState({displayTermBar: true})} />
+      // )
     } else {
 
       return (

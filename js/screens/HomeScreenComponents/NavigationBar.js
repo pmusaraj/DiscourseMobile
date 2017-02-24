@@ -53,30 +53,6 @@ class NavigationBar extends React.Component {
     return (
       <View style={styles.container}>
         <ProgressBar progress={this.props.progress} />
-        <View style={styles.leftContainer}>
-          <TouchableHighlight
-            underlayColor={'white'}
-            style={[styles.button]}
-            onPress={this.props.onDidPressLeftButton}>
-              <AnimatedIcon
-                name="plus"
-                color={colors.grayUI}
-                size={20}
-                style={[
-                  styles.animatedIcon,
-                  {transform: [{
-                    rotate: this.state.rotationValue.interpolate({
-                      inputRange: [0, 1],
-                      outputRange: ['0deg', '225deg']
-                    })
-                  }]}
-                ]}
-              />
-          </TouchableHighlight>
-        </View>
-        <View style={styles.titleContainer}>
-          <Image style={styles.icon} source={require('../../../img/nav-icon-gray.png')} />
-        </View>
         <View style={styles.rightContainer}>
           <TouchableHighlight
             underlayColor={'white'}

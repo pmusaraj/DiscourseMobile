@@ -7,7 +7,8 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
+  Platform
 } from 'react-native'
 
 import colors from '../../colors'
@@ -20,20 +21,11 @@ class OnBoardingView extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>
-          <Text style={{color: colors.grayTitle}}>
-            You don’t have any sites yet.
-          </Text>
-          {'\n'}
-          <Text style={{color: colors.graySubtitle}}>
-            Add Discourse sites to keep track of.
-          </Text>
-        </Text>
 
         <View style={styles.button}>
           <TouchableOpacity onPress={() => this.props.onDidPressAddSite()}>
             <Text style={styles.buttonText}>
-              + Add your first site
+              + Launch Site
             </Text>
           </TouchableOpacity>
         </View>
@@ -58,9 +50,9 @@ const styles = StyleSheet.create({
   buttonText: {
     backgroundColor: colors.blueCallToAction,
     color: 'white',
-    fontSize: 16,
+    fontSize: 24,
     fontWeight: '500',
-    padding: 8
+    padding: 12
   }
 })
 
