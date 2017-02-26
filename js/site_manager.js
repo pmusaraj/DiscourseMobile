@@ -481,16 +481,16 @@ class SiteManager {
           // on android maybe this can fail?
         }
 
-        let basePushUrl = 'https://api.discourse.org'
-        //let basePushUrl = "http://l.discourse:3000"
+        // let basePushUrl = 'https://api.discourse.org'
+        let basePushUrl = "https://onesignal.com/api/v1/notifications"
 
         let params = {
           scopes: 'notifications,session_info',
           client_id: clientId,
           nonce: nonce,
-          push_url: basePushUrl + '/api/publish_' + Platform.OS,
-          auth_redirect: 'discourse://auth_redirect',
-          application_name: 'Discourse - ' + deviceName,
+          push_url: basePushUrl,
+          auth_redirect: global.urlScheme + '://auth_redirect',
+          application_name: global.appName + ' - ' + deviceName,
           public_key: this.rsaKeys.public
         }
 
