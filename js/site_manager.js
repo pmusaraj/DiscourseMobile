@@ -489,7 +489,7 @@ class SiteManager {
           client_id: clientId,
           nonce: nonce,
           push_url: basePushUrl,
-          auth_redirect: global.urlScheme + '://auth_redirect',
+          auth_redirect: 'discourse://auth_redirect',
           application_name: global.appName + ' - ' + deviceName,
           public_key: this.rsaKeys.public
         }

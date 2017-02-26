@@ -10,13 +10,9 @@ replace({
 });
 
 replace({
-    regex: "discourse",
-    replacement: global.urlScheme,
-    paths: ['ios/Discourse/Info.plist']
-});
-
-replace({
     regex: "ONESIGNAL-APP-ID-HERE",
     replacement: global.oneSignalAppId,
     paths: ['ios/Discourse/AppDelegate.m']
 });
+
+console.log('Done')
