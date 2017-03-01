@@ -47,6 +47,10 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>FontAwesome.ttf</string>
+    <string>Signika-Bold.ttf</string>
+    <string>Signika-Light.ttf</string>
+    <string>Signika-Regular.ttf</string>
+    <string>Signika-Semibold.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

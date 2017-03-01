@@ -46,6 +46,10 @@
 		B587A4EF1E5549A8003AAE26 /* RNBackgroundFetch.m in Sources */ = {isa = PBXBuildFile; fileRef = B587A4EC1E5549A8003AAE26 /* RNBackgroundFetch.m */; };
 		B587A4F01E5549A8003AAE26 /* RNBackgroundJob.m in Sources */ = {isa = PBXBuildFile; fileRef = B587A4EE1E5549A8003AAE26 /* RNBackgroundJob.m */; };
 		B5BE5C04DCE640A2935B51D2 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 93878C5DFDE7482D9BE57D4D /* FontAwesome.ttf */; };
+		BDEDF7951E667C180091F6C8 /* Signika-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDEDF7911E667C180091F6C8 /* Signika-Bold.ttf */; };
+		BDEDF7961E667C180091F6C8 /* Signika-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDEDF7921E667C180091F6C8 /* Signika-Light.ttf */; };
+		BDEDF7971E667C180091F6C8 /* Signika-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDEDF7931E667C180091F6C8 /* Signika-Regular.ttf */; };
+		BDEDF7981E667C180091F6C8 /* Signika-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDEDF7941E667C180091F6C8 /* Signika-Semibold.ttf */; };
 		FFE91E71A5D843DFA6127A56 /* libSafariViewManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AAF97ACF5E143619BB10750 /* libSafariViewManager.a */; };
 /* End PBXBuildFile section */
 
@@ -340,6 +344,10 @@
 		B587A4ED1E5549A8003AAE26 /* RNBackgroundJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNBackgroundJob.h; sourceTree = "<group>"; };
 		B587A4EE1E5549A8003AAE26 /* RNBackgroundJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNBackgroundJob.m; sourceTree = "<group>"; };
 		B587A4F11E5549B8003AAE26 /* Discourse.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; name = Discourse.entitlements; path = Discourse/Discourse.entitlements; sourceTree = "<group>"; };
+		BDEDF7911E667C180091F6C8 /* Signika-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Signika-Bold.ttf"; sourceTree = "<group>"; };
+		BDEDF7921E667C180091F6C8 /* Signika-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Signika-Light.ttf"; sourceTree = "<group>"; };
+		BDEDF7931E667C180091F6C8 /* Signika-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Signika-Regular.ttf"; sourceTree = "<group>"; };
+		BDEDF7941E667C180091F6C8 /* Signika-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Signika-Semibold.ttf"; sourceTree = "<group>"; };
 		C0911F3C8A4E425D8F93FC34 /* RNDeviceInfo.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNDeviceInfo.xcodeproj; path = "../node_modules/react-native-device-info/RNDeviceInfo.xcodeproj"; sourceTree = "<group>"; };
 		CAA90F8E98084C94A22F8309 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -569,6 +577,10 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				BDEDF7911E667C180091F6C8 /* Signika-Bold.ttf */,
+				BDEDF7921E667C180091F6C8 /* Signika-Light.ttf */,
+				BDEDF7931E667C180091F6C8 /* Signika-Regular.ttf */,
+				BDEDF7941E667C180091F6C8 /* Signika-Semibold.ttf */,
 				13B07FAE1A68108700A75B9A /* Discourse */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* DiscourseTests */,
@@ -1118,6 +1130,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDEDF7951E667C180091F6C8 /* Signika-Bold.ttf in Resources */,
+				BDEDF7961E667C180091F6C8 /* Signika-Light.ttf in Resources */,
+				BDEDF7971E667C180091F6C8 /* Signika-Regular.ttf in Resources */,
+				BDEDF7981E667C180091F6C8 /* Signika-Semibold.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				B52583FE1E5551D7001E9B7C /* nav-icon-gray@3x.png in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,

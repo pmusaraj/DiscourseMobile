@@ -42,7 +42,7 @@
 
   // ADD ONESIGNAL appId
   self.oneSignal = [[RCTOneSignal alloc] initWithLaunchOptions:launchOptions
-                                                       appId:@"ONESIGNAL-APP-ID-HERE"];
+                                                       appId:@"43bce727-f6a7-4362-a5df-edfab5df77ca"];
 
   // TODO We don't need full release debugging forever, but for now it helps
   RCTSetLogThreshold(RCTLogLevelInfo - 1);
