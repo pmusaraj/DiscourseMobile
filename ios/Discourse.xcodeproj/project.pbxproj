@@ -1308,7 +1308,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Discourse/Discourse.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = M4XMDAF939;
@@ -1331,8 +1331,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.saloncms.peshkupauje;
 				PRODUCT_NAME = Discourse;
-				PROVISIONING_PROFILE = "3009c851-dbf8-430b-8af0-d75f9bf2fde3";
-				PROVISIONING_PROFILE_SPECIFIER = "Peshku pa uje dev";
+				PROVISIONING_PROFILE = "e937a67a-77ab-45e8-959e-2ba62b92b764";
+				PROVISIONING_PROFILE_SPECIFIER = "Peshku pa uje";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1343,7 +1343,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Discourse/Discourse.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = M4XMDAF939;
 				HEADER_SEARCH_PATHS = (
@@ -1365,8 +1365,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.saloncms.peshkupauje;
 				PRODUCT_NAME = Discourse;
-				PROVISIONING_PROFILE = "3009c851-dbf8-430b-8af0-d75f9bf2fde3";
-				PROVISIONING_PROFILE_SPECIFIER = "Peshku pa uje dev";
+				PROVISIONING_PROFILE = "e937a67a-77ab-45e8-959e-2ba62b92b764";
+				PROVISIONING_PROFILE_SPECIFIER = "Peshku pa uje";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
