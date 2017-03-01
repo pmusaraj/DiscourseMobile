@@ -14,20 +14,17 @@ import {
 import colors from '../../colors'
 
 class OnBoardingView extends React.Component {
-  static propTypes = {
-    onDidPressAddSite: React.PropTypes.func.isRequired
-  }
+  // static propTypes = {
+  //   onDidPressAddSite: React.PropTypes.func.isRequired
+  // }
 
   render() {
     return (
       <View style={styles.container}>
-
         <View style={styles.button}>
-          <TouchableOpacity onPress={() => this.props.onDidPressAddSite()}>
-            <Text style={styles.buttonText}>
-              + Launch Site
-            </Text>
-          </TouchableOpacity>
+          <Text>
+            Loading...
+          </Text>
         </View>
       </View>
     )

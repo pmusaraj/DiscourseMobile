@@ -302,11 +302,8 @@ class HomeScreen extends React.Component {
 
     if (this.shouldDisplayOnBoarding()) {
       // Override onboarding to load our specific app site
-      return (this.doSearch(global.siteDomain))
-      // return (
-      //   <Components.OnBoardingView
-      //     onDidPressAddSite={()=>this.setState({displayTermBar: true})} />
-      // )
+      this.doSearch(global.siteDomain)
+      return (<Components.OnBoardingView/>)
     } else {
 
       return (
