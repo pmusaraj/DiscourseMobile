@@ -15,4 +15,11 @@ replace({
     paths: ['ios/Discourse/AppDelegate.m']
 });
 
-console.log('Done')
+replace({
+    regex: "<string>discourse</string>",
+    replacement: "<string>" + global.URLscheme + "</string>",
+    paths: ['ios/Discourse/Info.plist']
+});
+
+console.log('Done replacing global variables')
+
