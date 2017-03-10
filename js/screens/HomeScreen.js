@@ -24,6 +24,7 @@ import BackgroundFetch from '../../lib/background-fetch'
 import Site from '../site'
 import Components from './HomeScreenComponents'
 import colors from '../colors'
+import OneSignal from 'react-native-onesignal';
 
 class HomeScreen extends React.Component {
   constructor(props) {
@@ -75,6 +76,8 @@ class HomeScreen extends React.Component {
       PushNotificationIOS.addEventListener('notification', (e) => this._handleRemoteNotification(e))
       PushNotificationIOS.addEventListener('localNotification', (e) => this._handleLocalNotification(e))
 
+      OneSignal.addEventListener('opened', this._handleRemoteNotification);
+
       PushNotificationIOS.addEventListener('register', (s) => {
         this._siteManager.registerClientId(s)
       })
@@ -122,6 +125,18 @@ class HomeScreen extends React.Component {
       })
   }
 
+  visitSiteSub(site, path) {
+    if (site.authToken) {
+      this.props.openUrl(site.url + '/' + path)
+      return
+    }
+
+    this._siteManager
+      .generateAuthURL(site)
+      .then(url => {
+        this.props.openUrl(url)
+      })
+  }
 
   closeBrowser() {
     if (Platform.OS === 'ios') {
@@ -341,7 +356,9 @@ class HomeScreen extends React.Component {
               site={site}
               onSwipe={(scrollEnabled)=>this.setState({scrollEnabled: scrollEnabled})}
               onClick={()=>this.visitSite(site)}
-              onDelete={()=>this._siteManager.remove(site)} />
+              onClickSub={(path)=>this.visitSiteSub(site, path)}
+              onDelete={()=>this._siteManager.remove(site)}
+              siteManager={this._siteManager} />
           }
         />
       )
@@ -368,10 +385,6 @@ class HomeScreen extends React.Component {
           onDidPressRightButton={() => this.onDidPressRighButton()}
           progress={this.state.addSiteProgress}
         />
-        <Components.TermBar
-          onDidSubmitTerm={(term)=>this.doSearch(term)}
-          expanded={this.state.displayTermBar}
-        />
         {this.renderSites()}
         <Components.DebugRow siteManager={this._siteManager} />
       </View>
@@ -386,6 +399,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.grayBackground
+  },
+  notificationsList: {
+    flex: 1
   }
 })
 
