@@ -121,13 +121,13 @@ class NotificationsScreen extends React.Component {
       let text
       switch (this.state.selectedIndex) {
         case 0:
-          text = "No new notifications."
+          text = "Nuk ka njoftime të reja."
           break
         case 1:
-          text = "No replies."
+          text = "Nuk ka përgjigje."
           break
         case 2:
-          text = "No notifications."
+          text = "Nuk ka njoftime."
           break
         default:
           text = ""
@@ -197,7 +197,7 @@ class NotificationsScreen extends React.Component {
     return (
       <Components.Filter
         selectedIndex={this.state.selectedIndex}
-        tabs={['New', 'Replies', 'All']}
+        tabs={['Të reja', 'Përgjigje', 'Të gjitha']}
         onChange={(index) => {
           this.setState({selectedIndex: index}, ()=>{this.refresh()})
         }}

@@ -78,7 +78,7 @@ class SiteRowSingle extends React.Component {
             onPress={()=>this.props.onClickSub('admin/flags/index')} 
             {...this.props.sortHandlers}>
               <View>
-                <CountSingle color={colors.redDanger} count={site.flagCount} text="flagged"/>
+                <CountSingle color={colors.redDanger} count={site.flagCount} text="sinjalizime"/>
               </View>
           </TouchableHighlight>
           <TouchableHighlight
@@ -87,7 +87,7 @@ class SiteRowSingle extends React.Component {
             onPress={()=>this.props.onClickSub('queued-posts')}
             {...this.props.sortHandlers}>
               <View>
-                <CountSingle color={colors.redDanger} count={site.queueCount} text="queued"/>
+                <CountSingle color={colors.redDanger} count={site.queueCount} text="për aprovim"/>
               </View>
           </TouchableHighlight>
           <TouchableHighlight
@@ -96,7 +96,7 @@ class SiteRowSingle extends React.Component {
             onPress={()=>this.props.onClickSub(messagesLink)}
             {...this.props.sortHandlers}>
               <View>
-                <CountSingle color={colors.greenPrivateUnread} count={site.unreadPrivateMessages} text="message(s)"/>
+                <CountSingle color={colors.greenPrivateUnread} count={site.unreadPrivateMessages} text="mesazh(e)"/>
               </View>
           </TouchableHighlight>
           <TouchableHighlight
@@ -105,7 +105,7 @@ class SiteRowSingle extends React.Component {
             onPress={()=>this.props.onClickSub('new')}
             {...this.props.sortHandlers}>
               <View>
-                <CountSingle color={colors.blueUnread} count={site.totalNew} text="new"/>
+                <CountSingle color={colors.blueUnread} count={site.totalNew} text="të reja"/>
               </View>
           </TouchableHighlight>
           <TouchableHighlight
@@ -114,7 +114,7 @@ class SiteRowSingle extends React.Component {
             onPress={()=>this.props.onClickSub('unread')}
             {...this.props.sortHandlers}>
               <View>
-                <CountSingle color={colors.blueUnread} count={site.totalUnread} text="unread"/>
+                <CountSingle color={colors.blueUnread} count={site.totalUnread} text="të palexuara"/>
               </View>
           </TouchableHighlight>
           {/*<TouchableHighlight
@@ -135,7 +135,7 @@ class SiteRowSingle extends React.Component {
     if (!site.authToken) {
       return (
         <View style={styles.shouldLogin}>
-            <Text style={styles.connect}>authenticate this app</Text>
+            <Text style={styles.connect}>autorizo aplikimin</Text>
         </View>
       )
     }

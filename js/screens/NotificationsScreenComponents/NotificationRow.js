@@ -85,10 +85,10 @@ class NotificationRow extends React.Component {
         )
         break
       case 16:
-        let messages = data.inbox_count > 1 ? 'messages' : 'message'
+        let messages = data.inbox_count > 1 ? 'mesazhe' : 'mesazh'
         innerText = (
           <Text style={styles.notificationText}>
-            {`${data.inbox_count} ${messages} in your ${data.group_name} inbox`}
+            {`${data.inbox_count} ${messages} në inboksin ${data.group_name}`}
           </Text>
         )
         break

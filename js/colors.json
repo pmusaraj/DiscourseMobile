@@ -5,9 +5,9 @@
   "grayUILight": "#e9e9e9",
   "graySubtitle": "#919191",
   "grayTitle": "#222",
-  "yellowUIFeedback": "#ffffa6",
-  "blueCallToAction": "#08c",
+  "yellowUIFeedback": "#F4C0BC",
+  "blueCallToAction": "#f44336",
   "blueUnread": "#0aadff",
-  "redDanger": "#ee512a",
+  "redDanger": "#e45735",
   "greenPrivateUnread": "#01a84c"
 }
