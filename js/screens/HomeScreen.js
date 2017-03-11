@@ -264,7 +264,7 @@ class HomeScreen extends React.Component {
           console.log(e)
 
           if ( e === 'dupe site') {
-            Alert.alert(`${term} already exists`)
+            console.log(`${term} already exists`)
           } else if (e === 'bad api') {
             Alert.alert(`Sorry, ${term} does not support mobile APIs, have owner upgrade Discourse to latest!`)
           } else {
