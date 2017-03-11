@@ -41,17 +41,17 @@ const styles = StyleSheet.create({
     padding:12
   },
   number: {
-    padding: 6,
-    borderRadius: 6,
+    padding: 8,
+    borderRadius: 8,
     marginRight: 12
   },
   numberText: {
-    fontSize: 14,
-    fontWeight: 'bold',
+    fontSize: 16,
+    fontWeight: 'normal',
     color: 'white'
   },
   text: {
-    fontSize: 13,
+    fontSize: 16,
     color: '#555'
   }
 })

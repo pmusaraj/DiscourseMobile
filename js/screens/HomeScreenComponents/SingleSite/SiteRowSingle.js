@@ -41,21 +41,28 @@ class SiteRowSingle extends React.Component {
                     {this.props.site.url.replace(/^https?:\/\//, '')}
                 </Text>
               </View>
-              {this._renderShouldLogin(this.props.site)}
             </View>
         </TouchableHighlight>
-        <View accessibilityTraits="link">
-          { this.props.site.authToken &&
-            this._renderCountPills(this.props.site)
-          } 
-        </View>
+        { !this.props.site.authToken &&
+          <TouchableHighlight
+            underlayColor={colors.yellowUIFeedback}
+            onPress={()=>this.props.onClick()}
+            {...this.props.sortHandlers}>
+            {this._renderShouldLogin(this.props.site)}
+          </TouchableHighlight>
+        }
+        { this.props.site.authToken &&
+          <View accessibilityTraits="link">
+            {this._renderCountPills(this.props.site)} 
+          </View>
+        }
+        { this.props.site.authToken &&
         <View style={styles.loggedIn}>
-          { this.props.site.authToken &&
             <Text>
               {this.props.site.username}
             </Text>
-          } 
         </View>
+        }
       </Swipeout>
     )
   }
@@ -127,8 +134,8 @@ class SiteRowSingle extends React.Component {
   _renderShouldLogin(site) {
     if (!site.authToken) {
       return (
-        <View style={styles.row}>
-          <Text style={styles.connect}>connect</Text>
+        <View style={styles.shouldLogin}>
+            <Text style={styles.connect}>authenticate this app</Text>
         </View>
       )
     }
@@ -139,20 +146,19 @@ class SiteRowSingle extends React.Component {
 const styles = StyleSheet.create({
   row: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'column',
     padding: 12,
     alignItems: 'center',
+    justifyContent: 'center'
   },
   icon: {
     alignSelf: 'center',
-    height: 40,
-    width: 40
+    height: 64,
+    width: 64,
+    padding: 12
   },
   info: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    paddingLeft: 12
+    padding: 12
   },
   url: {
     color: colors.grayTitle,
@@ -167,32 +173,41 @@ const styles = StyleSheet.create({
   notificationsRow: {
     flexDirection: 'row'
   },
+  shouldLogin: {
+    backgroundColor: '#FFF',
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderBottomColor: colors.grayBorder,
+    borderBottomWidth: StyleSheet.hairlineWidth
+  },
   connect: {
-    alignSelf: 'flex-start',
     backgroundColor: colors.blueCallToAction,
     color: 'white',
     fontSize: 14,
     fontWeight: '500',
-    marginLeft: 6,
-    marginBottom: 6,
+    margin: 24,
     overflow: 'hidden',
-    padding: 6
+    padding: 12,
+    flex: 1,
+    textAlign: 'center'
   },
   actionables: {
     backgroundColor: '#FFF',
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'column',
     flexWrap: 'wrap',
-    alignItems: 'center',
+    justifyContent: 'center',
     borderTopColor: colors.grayBorder,
     borderTopWidth: StyleSheet.hairlineWidth,
     borderBottomColor: colors.grayBorder,
-    borderBottomWidth: StyleSheet.hairlineWidth
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    padding: 24
   },
   loggedIn: {
     flex: 1,
     padding: 12,
-    alignItems: 'flex-end',
+    alignItems: 'center',
     borderBottomColor: colors.grayBorder,
     borderBottomWidth: StyleSheet.hairlineWidth,
   }
