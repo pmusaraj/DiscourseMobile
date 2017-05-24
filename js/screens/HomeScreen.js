@@ -25,6 +25,7 @@ import Site from '../site'
 import Components from './HomeScreenComponents'
 import colors from '../colors'
 import OneSignal from 'react-native-onesignal';
+import NavBar from './HomeScreenComponents/SingleSite/NavBar'
 
 class HomeScreen extends React.Component {
   constructor(props) {
@@ -136,6 +137,11 @@ class HomeScreen extends React.Component {
       .then(url => {
         this.props.openUrl(url)
       })
+  }
+
+  visitPage(url) {
+    this.props.openUrl(url)
+    return
   }
 
   closeBrowser() {
@@ -369,23 +375,28 @@ class HomeScreen extends React.Component {
     this.setState({displayTermBar: !this.state.displayTermBar})
   }
 
-  onDidPressRighButton() {
-    this.props.navigator.push({identifier:'NotificationsScreen', index:1})
-  }
-
   render() {
     // left 500 on refresh control so it does not render incorrectly when
     // not refreshing
+    var _self = this;
     return (
       <View style={styles.container}>
-        <Components.NavigationBar
-          leftButtonIconRotated={this.state.displayTermBar ? true : false}
-          rightButtonIconColor={this.state.rightButtonIconColor}
-          onDidPressLeftButton={() => this.onDidPressLeftButton()}
-          onDidPressRightButton={() => this.onDidPressRighButton()}
-          progress={this.state.addSiteProgress}
-        />
-        {this.renderSites()}
+        {Object.keys(this.state.data).map(function(site, k) {
+            return (
+              [
+                <NavBar
+                  key={'nav'}
+                  site={_self.state.data[site]}
+                  onDidPressRightButton={() => _self.visitSite(_self.state.data[site])}
+                  onVisitPage={(url) => _self.visitPage(url)}/>,
+                <Components.SiteRow
+                  site={_self.state.data[site]}
+                  siteManager={_self._siteManager}
+                  navigator={_self.props.navigator}
+                  onVisitPage={(url) => _self.visitPage(url)}/>
+              ]
+              );
+        })}
         <Components.DebugRow siteManager={this._siteManager} />
       </View>
     )
@@ -402,7 +413,17 @@ const styles = StyleSheet.create({
   },
   notificationsList: {
     flex: 1
-  }
+  },
+  navbar: {
+    backgroundColor: 'white',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderBottomColor: colors.grayBorder,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    height: Platform.OS === 'ios' ? 64 : 55,
+    paddingTop: Platform.OS === 'ios' ? 20 : 0
+  },
 })
 
 export default HomeScreen

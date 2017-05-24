@@ -9,138 +9,176 @@ import {
   Text,
   TouchableHighlight,
   ScrollView,
+  FlatList,
+  AsyncStorage,
   View
 } from 'react-native'
 
-import Swipeout from 'react-native-swipeout'
-
 import colors from '../../../colors'
-import CountSingle from './CountSingle'
 
-import NotificationsScreen from '../../NotificationsScreen'
+import Icon from 'react-native-vector-icons/FontAwesome'
+import NavBar from './NavBar'
+import ApiCalls from './ApiCalls'
 
 class SiteRowSingle extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      posts: [],
+      page: 1,
+      error: null,
+      refreshing: false,
+      loading: false
+    };
+
+    this.getCategories(this.props.site)
+  }
+
+  componentDidMount() {
+    this.getLatest(this.props.site)
+  }
+
+  getLatest(site) {
+    this._api = new ApiCalls()
+    const { page } = this.state
+    if (this.state.loading) {
+      console.log('already loading more')
+      return false
+    }
+
+    this.setState({
+      loading: true
+    })
+
+    return new Promise((resolve,reject) => {
+
+      this._api.getLatest(site, page - 1)
+        .then(posts => {
+          this.setState({
+            posts: this.state.page === 1 ? posts : [...this.state.posts, ...posts],
+            refreshing: false,
+            loading: false
+          })
+          resolve()
+        })
+        .catch(e=>{
+          console.log(e)
+          reject('failure')
+        })
+        .done()
+    })
+
+  }
+
+  getCategories(site) {
+    this._api = new ApiCalls()
+    return new Promise((resolve,reject) => {
+
+      this._api.getCategories(site)
+        .then(cats => {
+          this.setState({
+            categories: cats
+          })
+          resolve()
+        })
+        .catch(e=>{
+          console.log(e)
+          reject('failure')
+        })
+        .done()
+    })
+  }
+
+  displayCategory(id) {
+    var cat = this.state.categories.find(x => x.id === id)
+
+    if (!cat)
+      return false;
+
+    var catStyle = {
+      backgroundColor: `#${cat.color}`,
+      color: '#000000',
+      fontSize: 11,
+      padding: 4
+    };
+
+    return (
+        <Text style={catStyle}>{cat.name}</Text>
+      )
+  }
+
+  handleRefresh = () => {
+    this.setState(
+      {
+        page: 1,
+        refreshing: true
+      },
+      () => {
+        this.getLatest(this.props.site);
+      }
+    );
+  };
+
+  handleLoadMore = () => {
+    this.setState(
+      {
+        page: this.state.page + 1
+      },
+      () => {
+        this.getLatest(this.props.site);
+      }
+    );
+  };
+
+  renderSeparator = () => {
+    return (
+      <View
+        style={{
+          height: 1,
+          width: "100%",
+          backgroundColor: colors.grayBorder
+        }}
+      />
+    );
+  };
 
   render() {
     return (
-      <Swipeout
-        sensitivity={2}
-        backgroundColor={'white'}
-        >
-        <TouchableHighlight
-          underlayColor={colors.yellowUIFeedback}
-          onPress={()=>this.props.onClick()}
-          {...this.props.sortHandlers}>
-            <View accessibilityTraits="link" style={styles.row}>
-              <Image style={styles.icon} source={{uri: this.props.site.icon}} />
-              <View style={styles.info}>
-                <Text
-                  ellipsizeMode="tail"
-                  numberOfLines={1}
-                  style={styles.url}>
-                    {this.props.site.url.replace(/^https?:\/\//, '')}
-                </Text>
-              </View>
-            </View>
-        </TouchableHighlight>
-        { !this.props.site.authToken &&
-          <TouchableHighlight
-            underlayColor={colors.yellowUIFeedback}
-            onPress={()=>this.props.onClick()}
-            {...this.props.sortHandlers}>
-            {this._renderShouldLogin(this.props.site)}
-          </TouchableHighlight>
-        }
-        { this.props.site.authToken &&
-          <View accessibilityTraits="link">
-            {this._renderCountPills(this.props.site)} 
-          </View>
-        }
-        { this.props.site.authToken &&
-        <View style={styles.loggedIn}>
-            <Text>
-              {this.props.site.username}
-            </Text>
-        </View>
-        }
-      </Swipeout>
+      <FlatList
+        data={this.state.posts}
+        renderItem={this._renderItem}
+        keyExtractor={item => item.id}
+        onRefresh={this.handleRefresh}
+        refreshing={this.state.refreshing}
+        ItemSeparatorComponent={this.renderSeparator}
+        onEndReached={this.handleLoadMore}
+      />
     )
   }
 
-  _renderCountPills(site) {
-    if (site.authToken) {
-      var messagesLink = 'users/' + site.username + '/messages'
-      return (
-        <View style={styles.actionables}>
-          <TouchableHighlight
-            underlayColor={colors.yellowUIFeedback}
-            style={styles.item}
-            onPress={()=>this.props.onClickSub('admin/flags/index')} 
-            {...this.props.sortHandlers}>
-              <View>
-                <CountSingle color={colors.redDanger} count={site.flagCount} text="flagged"/>
-              </View>
-          </TouchableHighlight>
-          <TouchableHighlight
-            underlayColor={colors.yellowUIFeedback}
-            style={styles.item}
-            onPress={()=>this.props.onClickSub('queued-posts')}
-            {...this.props.sortHandlers}>
-              <View>
-                <CountSingle color={colors.redDanger} count={site.queueCount} text="queued"/>
-              </View>
-          </TouchableHighlight>
-          <TouchableHighlight
-            underlayColor={colors.yellowUIFeedback}
-            style={styles.item}
-            onPress={()=>this.props.onClickSub(messagesLink)}
-            {...this.props.sortHandlers}>
-              <View>
-                <CountSingle color={colors.greenPrivateUnread} count={site.unreadPrivateMessages} text="message(s)"/>
-              </View>
-          </TouchableHighlight>
-          <TouchableHighlight
-            underlayColor={colors.yellowUIFeedback}
-            style={styles.item}
-            onPress={()=>this.props.onClickSub('new')}
-            {...this.props.sortHandlers}>
-              <View>
-                <CountSingle color={colors.blueUnread} count={site.totalNew} text="new"/>
-              </View>
-          </TouchableHighlight>
-          <TouchableHighlight
-            underlayColor={colors.yellowUIFeedback}
-            style={styles.item}
-            onPress={()=>this.props.onClickSub('unread')}
-            {...this.props.sortHandlers}>
-              <View>
-                <CountSingle color={colors.blueUnread} count={site.totalUnread} text="unread"/>
-              </View>
-          </TouchableHighlight>
-          {/*<TouchableHighlight
-            underlayColor={colors.yellowUIFeedback}
-            style={styles.item}
-            onPress={()=>this.props.onClick()}
-            {...this.props.sortHandlers}>
-              <View>
-                <CountSingle color={colors.blueUnread} count={site.unreadNotifications} text="replie(s) / mention(s)"/>
-              </View>
-          </TouchableHighlight>*/}
+  _renderItem = ({item}) => (
+    <TouchableHighlight
+      underlayColor={'white'}
+      onPress={() => this._visitPage(item)}>
+      <View style={styles.item} key={item.id}>
+        <Text style={styles.itemTitle}>{item.title}</Text>
+        <View style={styles.itemMeta}>
+            {this.displayCategory(item.category_id)}
+            <Text style={styles.itemMetaText}>
+              <Text>{item.posts_count} replies</Text>
+              {global.showViewCountInList &&
+                <Text>&nbsp;| {item.views} views</Text>
+              }
+            </Text>
         </View>
-      )
-    }
-  }
+      </View>
+    </TouchableHighlight>
+  );
 
-  _renderShouldLogin(site) {
-    if (!site.authToken) {
-      return (
-        <View style={styles.shouldLogin}>
-            <Text style={styles.connect}>authenticate this app</Text>
-        </View>
-      )
-    }
+  _visitPage(item) {
+    this.props.onVisitPage(this.props.site.url + '/t/' + item.slug + '/')
   }
-
 }
 
 const styles = StyleSheet.create({
@@ -153,63 +191,29 @@ const styles = StyleSheet.create({
   },
   icon: {
     alignSelf: 'center',
-    height: 64,
-    width: 64,
-    padding: 12
-  },
-  info: {
-    padding: 12
-  },
-  url: {
-    color: colors.grayTitle,
-    fontSize: 18,
-    fontWeight: 'normal'
-  },
-  description: {
-    color: colors.graySubtitle,
-    flex: 10,
-    fontSize: 14
+    height: 32,
+    width: 32
   },
   notificationsRow: {
     flexDirection: 'row'
   },
-  shouldLogin: {
-    backgroundColor: '#FFF',
-    flex: 1,
+  item: {
+    paddingHorizontal: 14,
+    paddingVertical: 10
+  },
+  itemTitle: {
+    fontSize: 16,
+    fontWeight: 'bold'
+  },
+  itemMeta: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderBottomColor: colors.grayBorder,
-    borderBottomWidth: StyleSheet.hairlineWidth
+    marginTop: 5
   },
-  connect: {
-    backgroundColor: colors.blueCallToAction,
-    color: 'white',
-    fontSize: 14,
-    fontWeight: '500',
-    margin: 24,
-    overflow: 'hidden',
-    padding: 12,
-    flex: 1,
-    textAlign: 'center'
-  },
-  actionables: {
-    backgroundColor: '#FFF',
-    flex: 1,
-    flexDirection: 'column',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    borderTopColor: colors.grayBorder,
-    borderTopWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: colors.grayBorder,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    padding: 24
-  },
-  loggedIn: {
-    flex: 1,
-    padding: 12,
-    alignItems: 'center',
-    borderBottomColor: colors.grayBorder,
-    borderBottomWidth: StyleSheet.hairlineWidth,
+  itemMetaText: {
+    opacity: 0.6,
+    fontSize: 12,
+    paddingLeft: 6
   }
 })
 

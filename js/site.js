@@ -114,9 +114,8 @@ class Site {
     }
 
     return new Promise((resolve, reject) => {
-
       let req = new Request(this.url + path, {
-        headers: headers,
+        headers: this.authToken ? headers : null,
         method: method,
         body: data
       })
@@ -174,7 +173,6 @@ class Site {
       } else {
         this.jsonApi('/session/current.json')
           .then(json =>{
-
             this.userId = json.current_user.id
             this.username = json.current_user.username
             this.isStaff = !!(json.current_user.admin || json.current_user.moderator)
